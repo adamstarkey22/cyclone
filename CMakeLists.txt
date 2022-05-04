@@ -17,7 +17,7 @@ set(CYCLONE_SOURCE_FILES
     src/init.c
     src/instance.c
     src/main.c
-    src/quad.c
+    src/mesh.c
 )
 
 add_executable(cyclone ${CYCLONE_SOURCE_FILES})
