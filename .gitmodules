@@ -1,3 +1,6 @@
 [submodule "extlib/glfw"]
 	path = extlib/glfw
 	url = https://github.com/glfw/glfw
+[submodule "extlib/cglm"]
+	path = extlib/cglm
+	url = https://github.com/recp/cglm
