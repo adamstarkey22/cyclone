@@ -21,5 +21,5 @@ void c_end(c_instance_t *c)
 
 void c_draw_image(c_instance_t *c)
 {
-    c_quad_draw(&c->quad);
+    c_mesh_draw(&c->quad_mesh);
 }
