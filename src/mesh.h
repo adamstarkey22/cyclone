@@ -8,7 +8,7 @@ typedef struct {
     int element_count;
 } c_mesh_t;
 
-void c_mesh_init(c_mesh_t *mesh, int vertex_count, float *vertices, int element_count, unsigned *elements);
+void c_mesh_init(c_mesh_t *mesh, int vertex_count, const float *vertices, int element_count, const unsigned *elements);
 void c_mesh_free(c_mesh_t *mesh);
 void c_mesh_draw(c_mesh_t *mesh);
 

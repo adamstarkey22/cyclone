@@ -3,7 +3,7 @@
 
 #include "mesh.h"
 
-void c_mesh_init(c_mesh_t *mesh, int vertex_count, float *vertices, int element_count, unsigned *elements)
+void c_mesh_init(c_mesh_t *mesh, int vertex_count, const float *vertices, int element_count, const unsigned *elements)
 {
     mesh->element_count = element_count;
 
