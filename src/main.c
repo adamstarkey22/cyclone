@@ -1,11 +1,37 @@
 #include <glad/gl.h>
 
+#include "resmgr.h"
 #include "draw.h"
 #include "init.h"
 #include "instance.h"
 
 int main()
 {
+    c_resmgr_t resmgr;
+    c_resmgr_init(&resmgr);
+
+    c_mesh_t mesh;
+    mesh.VAO = 69;
+    mesh.element_buffer = 420;
+    mesh.vertex_buffer = 1773;
+    mesh.element_count = 1337;
+
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+    c_resmgr_push_mesh(&resmgr, &mesh);
+
+    c_resmgr_dbg(&resmgr);
+
+    c_resmgr_free(&resmgr);
+    
     c_init_lib();
 
     c_instance_t c;
