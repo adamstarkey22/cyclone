@@ -13,19 +13,16 @@ add_subdirectory(extlib/glfw)
 add_subdirectory(extlib/lua-5.4.4)
 
 set(CYCLONE_SOURCE_FILES
-    src/draw.c
     src/gl.c
     src/init.c
     src/instance.c
     src/main.c
     src/memory.c
     src/mesh_array.c
-    src/mesh.c
-    src/program.c
-    src/resmgr.c
 )
 
 add_executable(cyclone ${CYCLONE_SOURCE_FILES})
+target_include_directories(cyclone PUBLIC include)
 
 target_link_libraries(cyclone cglm)
 target_link_libraries(cyclone glfw)

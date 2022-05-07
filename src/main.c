@@ -1,49 +1,32 @@
-#include <glad/gl.h>
+#include <cyclone/cyclone.h>
+#include <stdio.h>
 
-#include "resmgr.h"
-#include "draw.h"
-#include "init.h"
-#include "instance.h"
+#include "mesh_array.h"
+
+float vertices[] = {
+    -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+    -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+    0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+};
+
+unsigned elements[] = { 0, 1, 2, 0, 2, 3 };
 
 int main()
 {
-    c_resmgr_t resmgr;
-    c_resmgr_init(&resmgr);
-
-    c_mesh_t mesh;
-    mesh.VAO = 69;
-    mesh.element_buffer = 420;
-    mesh.vertex_buffer = 1773;
-    mesh.element_count = 1337;
-
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-    c_resmgr_push_mesh(&resmgr, &mesh);
-
-    c_resmgr_dbg(&resmgr);
-
-    c_resmgr_free(&resmgr);
-    
-    c_init_lib();
-
-    c_instance_t c;
-    c_init(&c);
-    
-    while (!c_shouldclose(&c)) {
-        c_start(&c);
-        c_draw_image(&c);
-        c_end(&c);
+    if (!c_init()) {
+        fprintf(stderr, "Failed to initialise cyclone\n");
+        return 1;
     }
 
-    c_free(&c);
-    c_free_lib();
+    c_instance_t *c = c_create_instance();
+    if (c == NULL) {
+        fprintf(stderr, "Failed to create cyclone instance\n");
+    }
+
+    unsigned quad = c_create_mesh(c, 32, vertices, 6, elements);
+
+    c_destroy_instance(c);
+    c_free();
     return 0;
 }

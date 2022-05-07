@@ -1,26 +1,38 @@
-#include <glad/gl.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "instance.h"
 
-const float quad_vertices[] = { 0.0f };
-const unsigned quad_elements[] = { 0, 1, 2, 0, 2, 3 };
-
-void c_init(c_instance_t *c)
+c_instance_t *c_create_instance()
 {
-    c->window = glfwCreateWindow(640, 480, "cyclone", NULL, NULL);
-    glfwMakeContextCurrent(c->window);
-    gladLoadGL(glfwGetProcAddress);
+    c_instance_t *instance = (c_instance_t *)malloc(sizeof(c_instance_t));
+    if (instance == NULL) return NULL;
 
-    c_mesh_init(&c->quad_mesh, 0, quad_vertices, 6, quad_elements);
+    instance->window = glfwCreateWindow(640, 480, "cyclone", NULL, NULL);
+    if (instance->window == NULL) {
+        free(instance);
+        return NULL;
+    }
+
+    glfwMakeContextCurrent(instance->window);
+    if (!gladLoadGL(glfwGetProcAddress)) {
+        glfwDestroyWindow(instance->window);
+        free(instance);
+        return NULL;
+    }
+
+    _c_mesh_array_init(&instance->meshes);
+    return instance;
 }
 
-void c_free(c_instance_t *c)
+void c_destroy_instance(c_instance_t *instance)
 {
-    c_mesh_free(&c->quad_mesh);
-    glfwDestroyWindow(c->window);
+    _c_mesh_array_free(&instance->meshes);
+    glfwDestroyWindow(instance->window);
+    free(instance);
 }
 
-int c_shouldclose(c_instance_t *c)
+unsigned c_create_mesh(c_instance_t *instance, int vertex_count, float *vertices, int element_count, unsigned *elements)
 {
-    return glfwWindowShouldClose(c->window);
+    return _c_mesh_array_create_mesh(&instance->meshes, vertex_count, vertices, element_count, elements);
 }
