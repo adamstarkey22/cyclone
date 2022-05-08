@@ -19,6 +19,7 @@ set(CYCLONE_SOURCE_FILES
     src/main.c
     src/memory.c
     src/mesh_array.c
+    src/program_array.c
 )
 
 add_executable(cyclone ${CYCLONE_SOURCE_FILES})

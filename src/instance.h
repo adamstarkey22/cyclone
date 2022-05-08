@@ -6,10 +6,12 @@
 #include <glfw/glfw3.h>
 
 #include "mesh_array.h"
+#include "program_array.h"
 
 struct c_instance_t {
     GLFWwindow *window;
     _c_mesh_array_t meshes;
+    _c_program_array_t programs;
 };
 
 #endif
