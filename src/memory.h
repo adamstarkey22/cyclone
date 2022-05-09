@@ -1,5 +1,5 @@
-#ifndef _CYCLONE_MEMORY_H_
-#define _CYCLONE_MEMORY_H_
+#ifndef CYCLONE_MEMORY_H
+#define CYCLONE_MEMORY_H
 
 #define GROW_ARRAY_CAPACITY(capacity) \
     ((capacity) < 8 ? 8 : (capacity) * 2)
