@@ -2,8 +2,7 @@
 #include <glad/gl.h>
 #include <stdio.h>
 
-#include "instance.h"
-#include "mesh_array.h"
+#include "internal.h"
 
 float vertices[] = {
     -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -39,19 +38,19 @@ int main()
         return 1;
     }
 
-    c_instance_t *c = c_create_instance();
+    CInstance *c = c_create_instance();
     if (c == NULL) {
         fprintf(stderr, "Failed to create cyclone instance\n");
     }
 
-    unsigned quad = c_create_mesh(c, 32, vertices, 6, elements);
-    unsigned program = c_create_program(c, vertex_shader_source, fragment_shader_source);
+    int quad = c_create_mesh(c, 32, vertices, 6, elements);
+    int program = c_create_program(c, vertex_shader_source, fragment_shader_source);
 
     while (!glfwWindowShouldClose(c->window)) {
         glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(c->programs.data[program - 1]);
-        glBindVertexArray(c->meshes.data[quad - 1].VAO);
-        glDrawElements(GL_TRIANGLES, c->meshes.data[quad - 1].count, GL_UNSIGNED_INT, (void *)0);
+        glUseProgram(c->programs.data[program]);
+        glBindVertexArray(c->meshes.data[quad].vertex_array_object);
+        glDrawElements(GL_TRIANGLES, c->meshes.data[quad].element_count, GL_UNSIGNED_INT, (void *)0);
         glfwSwapBuffers(c->window);
         glfwPollEvents();
     }
